@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { BookmarkIcon, Share2, ExternalLink } from "lucide-react"
+import { BookmarkIcon, Share2, ExternalLink } from 'lucide-react'
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
@@ -36,10 +36,13 @@ export default function FeaturedHeritage({ region = "north" }: FeaturedHeritageP
 
     const fetchBookmarks = async () => {
       try {
-        const { bookmarks } = await getBookmarks()
-        setBookmarkedIds(bookmarks.map((item) => item.id))
+        const result = await getBookmarks()
+        // Check if result and result.bookmarks exist before accessing
+        setBookmarkedIds((result?.bookmarks || []).map((item) => item.id))
       } catch (error) {
         console.error("Error fetching bookmarks:", error)
+        // Set to empty array in case of error
+        setBookmarkedIds([])
       }
     }
 

@@ -4,8 +4,13 @@ import {
   searchHeritageItems,
   getHeritageItemsByState,
   getHeritageItemsByRegion,
+  getHeritageItemsByCategory,
   getHeritageItemById,
   fetchFromWikipedia,
+  getFeaturedHeritageItems,
+  getAllRegions,
+  getRegionById,
+  getPopularStates,
   type HeritageItem,
 } from "@/lib/api"
 
@@ -28,6 +33,18 @@ export async function getStateHeritage(state: string) {
 // Get heritage items by region
 export async function getRegionHeritage(region: string) {
   const items = await getHeritageItemsByRegion(region)
+  return { items }
+}
+
+// Get heritage items by category
+export async function getCategoryHeritage(category: string) {
+  const items = await getHeritageItemsByCategory(category)
+  return { items }
+}
+
+// Get featured heritage items
+export async function getFeaturedItems(limit?: number) {
+  const items = await getFeaturedHeritageItems(limit)
   return { items }
 }
 
@@ -60,6 +77,24 @@ export async function getHeritageDetails(id: string) {
   }
 
   return { item }
+}
+
+// Get all regions
+export async function getAllRegionsData() {
+  const regions = await getAllRegions()
+  return { regions }
+}
+
+// Get region by ID
+export async function getRegionData(id: string) {
+  const region = await getRegionById(id)
+  return { region }
+}
+
+// Get popular states
+export async function getPopularStatesData(limit?: number) {
+  const states = await getPopularStates(limit)
+  return { states }
 }
 
 // Save bookmark to cookies
